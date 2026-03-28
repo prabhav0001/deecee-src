@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>निश हेयर (Nish Hair) - बिजनेस केस स्टडी और एनालिसिस</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        warm: {
+                            50: '#fdfbf7',
+                            100: '#f9f6f0',
+                            200: '#f0eade',
+                            300: '#e3d5c1',
+                            400: '#d4bb9f',
+                            500: '#c6a17d',
+                            600: '#b8865d',
+                            700: '#9a6b4c',
+                            800: '#7e5740',
+                            900: '#664736',
+                        },
+                        accent: {
+                            pink: '#e8b4b8', // Subtle pink for the brand
+                            green: '#8f9a82', // Soft sage
+                            red: '#b86d6d',   // Muted red
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #fdfbf7;
+            color: #4a4a4a;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 45vh;
+            max-height: 400px;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 35vh;
+                max-height: 300px;
+            }
+        }
+        .interactive-card {
+            transition: all 0.3s ease;
+        }
+        .interactive-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+        .tab-btn.active {
+            border-bottom: 3px solid #b8865d;
+            color: #9a6b4c;
+            font-weight: 700;
+        }
+        .timeline-item.active .timeline-dot {
+            background-color: #b8865d;
+            transform: scale(1.2);
+        }
+        .timeline-item.active .timeline-text {
+            color: #9a6b4c;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="antialiased scroll-smooth">
+
+    <!-- Chosen Palette: Warm Neutrals & Subtle Pastels (fdfbf7, e3d5c1, b8865d, e8b4b8) -->
+    <!-- Application Structure Plan: The SPA uses a logical, narrative-driven vertical scroll structure. 1. 'Hero' sets the context. 2. 'Journey' uses an interactive timeline to show evolution. 3. 'Products' uses a donut chart to show product mix. 4. 'Marketing Engine' uses interactive charts (Bar/Radar) to break down their complex digital strategy. 5. 'Branding' highlights qualitative UX features. 6. 'SWOT' uses interactive tabs for business analysis. This layout prevents information overload and encourages exploration step-by-step. -->
+    <!-- Visualization & Content Choices: 1. Journey -> Goal: Change/Timeline -> HTML/JS Interactive Timeline -> Clear progression without SVG. 2. Product Mix -> Goal: Compare -> Chart.js Donut Chart -> Best for showing composition of sales. 3. Marketing Channels -> Goal: Relationships/Compare -> Chart.js Radar Chart -> Ideal for showing multivariate focus areas. 4. Content Pillars -> Goal: Compare -> Chart.js Bar Chart -> Easy comparison of engagement metrics. 5. SWOT -> Goal: Organize -> HTML/JS Tabs -> Keeps text chunks manageable and organized. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <nav class="sticky top-0 z-50 bg-warm-50/90 backdrop-blur-md border-b border-warm-200 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex-shrink-0 font-bold text-2xl text-warm-900 tracking-wide">
+                    👑 NISH HAIR
+                </div>
+                <div class="hidden md:flex space-x-8 text-sm font-medium text-warm-700">
+                    <a href="#journey" class="hover:text-warm-900 transition-colors">सफर</a>
+                    <a href="#products" class="hover:text-warm-900 transition-colors">उत्पाद</a>
+                    <a href="#marketing" class="hover:text-warm-900 transition-colors">मार्केटिंग</a>
+                    <a href="#analysis" class="hover:text-warm-900 transition-colors">विश्लेषण</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-warm-100 py-16 md:py-24 border-b border-warm-200">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-warm-900 mb-4 leading-tight">निश हेयर: D2C ब्रांड की सफलता की कहानी</h1>
+            <p class="text-xl text-warm-700 italic mb-8">"Your Hair But Better"</p>
+            <p class="text-lg text-warm-800 leading-relaxed bg-white/60 p-6 rounded-xl shadow-sm inline-block">
+                पारुल गुलाटी द्वारा 2017 में स्थापित, 'निश हेयर' ने महिलाओं की हेयर थिनिंग (बालों का झड़ना) और एलोपेसिया जैसी संवेदनशील समस्याओं को समझा और एक 100% ह्यूमन हेयर एक्सटेंशन ब्रांड खड़ा किया। यह रिपोर्ट उनकी रणनीतियों, मार्केटिंग ट्रिक्स और ओवरऑल ग्रोथ का विस्तृत इंटरेक्टिव विश्लेषण है।
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24">
+
+        <section id="journey" class="scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-warm-900 mb-4">🚀 शुरुआत से आज तक का सफर</h2>
+                <p class="text-warm-700 max-w-2xl mx-auto">इस भाग में हम निश हेयर के विकास के प्रमुख पड़ावों को देखेंगे। एक छोटे इंस्टाग्राम पेज से लेकर शार्क टैंक इंडिया और ऑफलाइन स्टूडियो तक का सफर। (नीचे दिए गए वर्षों पर क्लिक करें)</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-warm-200 p-6 md:p-10">
+                <div class="flex flex-col md:flex-row gap-8 items-start">
+                    
+                    <div class="w-full md:w-1/3 border-l-2 border-warm-200 pl-4 space-y-6 relative" id="timeline-container">
+                        <div class="timeline-item active cursor-pointer group" data-step="1">
+                            <div class="absolute -left-[9px] w-4 h-4 rounded-full bg-warm-300 timeline-dot transition-all duration-300 mt-1"></div>
+                            <h3 class="text-lg timeline-text text-warm-600 transition-all duration-300 group-hover:text-warm-800">2017: शुरुआत</h3>
+                        </div>
+                        <div class="timeline-item cursor-pointer group" data-step="2">
+                            <div class="absolute -left-[9px] w-4 h-4 rounded-full bg-warm-300 timeline-dot transition-all duration-300 mt-1"></div>
+                            <h3 class="text-lg timeline-text text-warm-600 transition-all duration-300 group-hover:text-warm-800">ग्राउंड लेवल एक्टिविटीज</h3>
+                        </div>
+                        <div class="timeline-item cursor-pointer group" data-step="3">
+                            <div class="absolute -left-[9px] w-4 h-4 rounded-full bg-warm-300 timeline-dot transition-all duration-300 mt-1"></div>
+                            <h3 class="text-lg timeline-text text-warm-600 transition-all duration-300 group-hover:text-warm-800">शार्क टैंक बूस्ट (S2)</h3>
+                        </div>
+                        <div class="timeline-item cursor-pointer group" data-step="4">
+                            <div class="absolute -left-[9px] w-4 h-4 rounded-full bg-warm-300 timeline-dot transition-all duration-300 mt-1"></div>
+                            <h3 class="text-lg timeline-text text-warm-600 transition-all duration-300 group-hover:text-warm-800">ऑफलाइन विस्तार</h3>
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-2/3 bg-warm-50 p-6 md:p-8 rounded-xl border border-warm-100 min-h-[200px] flex items-center">
+                        <div id="timeline-content" class="text-warm-800 text-lg leading-relaxed transition-opacity duration-300">
+                            <strong>बूटस्ट्रैप्ड शुरुआत:</strong> पारुल गुलाटी (एक्टर) ने टीवी शूट्स के दौरान खुद हेयर थिनिंग का सामना किया। यहीं से उन्हें नेचुरल-लुकिंग एक्सटेंशन्स की जरूरत महसूस हुई। यह एक पूरी तरह से बूटस्ट्रैप्ड बिजनेस था जो एक छोटे स्केल पर इंस्टाग्राम पेज के जरिए शुरू हुआ।
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="products" class="scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-warm-900 mb-4">🛍️ उत्पाद विकास और फोकस</h2>
+                <p class="text-warm-700 max-w-2xl mx-auto">निश हेयर ने बेसिक प्रोडक्ट्स से शुरुआत की और धीरे-धीरे अपने 'हीरो प्रोडक्ट' (हेयर टॉपर्स) पर फोकस किया। नीचे दिया गया चार्ट उनके अनुमानित प्रोडक्ट पोर्टफोलियो के फोकस को दर्शाता है।</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-warm-200 p-6 md:p-10 flex flex-col md:flex-row items-center gap-10">
+                <div class="w-full md:w-1/2">
+                    <div class="chart-container">
+                        <canvas id="productChart"></canvas>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 space-y-6">
+                    <div class="p-5 bg-warm-50 rounded-lg border-l-4 border-warm-600">
+                        <h4 class="font-bold text-warm-900 text-lg">हेयर टॉपर्स (Hero Product)</h4>
+                        <p class="text-warm-700 mt-1">यह ब्रांड का सिग्नेचर प्रोडक्ट है। यह उन महिलाओं के लिए डिज़ाइन किया गया है जिन्हें क्राउन एरिया (सिर के ऊपरी हिस्से) पर थिनिंग की समस्या होती है।</p>
+                    </div>
+                    <div class="p-5 bg-warm-50 rounded-lg border-l-4 border-accent-pink">
+                        <h4 class="font-bold text-warm-900 text-lg">बेसिक क्लिप-इन्स</h4>
+                        <p class="text-warm-700 mt-1">लेंथ और वॉल्यूम बढ़ाने के लिए शुरुआती दौर का प्रोडक्ट, जिसकी मांग हमेशा बनी रहती है।</p>
+                    </div>
+                    <div class="p-5 bg-warm-50 rounded-lg border-l-4 border-warm-400">
+                        <h4 class="font-bold text-warm-900 text-lg">फेक बैंग्स और हाइलाइट्स</h4>
+                        <p class="text-warm-700 mt-1">फैशन और ट्रेंडी लुक्स के लिए कलरफुल हाइलाइट्स और बैंग्स बिना असली बालों को काटे या कलर किए।</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="marketing" class="scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-warm-900 mb-4">📱 डिजिटल मार्केटिंग और ब्रांडिंग</h2>
+                <p class="text-warm-700 max-w-2xl mx-auto">निश हेयर की असली ताकत उनकी 'संस्थापक-आधारित' (Founder-Led) मार्केटिंग और वीडियो कंटेंट रणनीति है। यहाँ हम उनके चैनल डिस्ट्रीब्यूशन और कंटेंट पिलर्स का विश्लेषण करेंगे।</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-white rounded-2xl shadow-sm border border-warm-200 p-6">
+                    <h3 class="text-xl font-bold text-center text-warm-900 mb-6">चैनल फोकस (Channel Focus)</h3>
+                    <p class="text-sm text-center text-warm-600 mb-4">विभिन्न डिजिटल प्लेटफॉर्म्स पर ब्रांड के मार्केटिंग प्रयासों का तुलनात्मक रडार।</p>
+                    <div class="chart-container">
+                        <canvas id="marketingRadarChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-warm-200 p-6">
+                    <h3 class="text-xl font-bold text-center text-warm-900 mb-6">कंटेंट एंगेजमेंट (Content Pillars)</h3>
+                    <p class="text-sm text-center text-warm-600 mb-4">इंस्टाग्राम और यूट्यूब पर उनके 3 मुख्य कंटेंट प्रकारों की एंगेजमेंट का स्तर।</p>
+                    <div class="chart-container">
+                        <canvas id="contentBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="interactive-card bg-white p-6 rounded-xl border border-warm-200 shadow-sm text-center">
+                    <div class="text-4xl mb-4">🎥</div>
+                    <h4 class="font-bold text-warm-900 text-lg mb-2">वीडियो डिमॉन्स्ट्रेशन</h4>
+                    <p class="text-warm-700 text-sm">फेसबुक और इंस्टाग्राम एड्स मुख्य रूप से 'Before and After' और 'How-to-wear' वीडियो पर निर्भर करते हैं, जो हाई कन्वर्जन देते हैं।</p>
+                </div>
+                <div class="interactive-card bg-white p-6 rounded-xl border border-warm-200 shadow-sm text-center">
+                    <div class="text-4xl mb-4">🔍</div>
+                    <h4 class="font-bold text-warm-900 text-lg mb-2">सर्च इंटेंट (Google)</h4>
+                    <p class="text-warm-700 text-sm">'hair toppers in India' जैसे हाई-इंटेंट कीवर्ड्स पर Google Ads रन करके जरूरत वाले ग्राहकों को सीधे टारगेट किया जाता है।</p>
+                </div>
+                <div class="interactive-card bg-white p-6 rounded-xl border border-warm-200 shadow-sm text-center">
+                    <div class="text-4xl mb-4">🎁</div>
+                    <h4 class="font-bold text-warm-900 text-lg mb-2">प्रीमियम अनबॉक्सिंग</h4>
+                    <p class="text-warm-700 text-sm">पेस्टल पिंक पैकेजिंग, सिल्क पाउच, पर्सनलाइज्ड 'Thank You' नोट और फ्री टिक-टैक क्लिप्स ग्राहक को एक लक्जरी अनुभव देते हैं (UGC को बढ़ावा)।</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="analysis" class="scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-warm-900 mb-4">📊 ओवरऑल बिजनेस विश्लेषण (SWOT)</h2>
+                <p class="text-warm-700 max-w-2xl mx-auto">ब्रांड की वर्तमान स्थिति का सटीक मूल्यांकन। जानकारी देखने के लिए नीचे दिए गए बटनों पर क्लिक करें।</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-warm-200 overflow-hidden max-w-4xl mx-auto">
+                <div class="flex flex-wrap border-b border-warm-200 bg-warm-50">
+                    <button class="flex-1 py-4 px-6 text-center font-medium text-warm-600 hover:bg-warm-100 tab-btn active" data-tab="strengths">
+                        💪 ताकत (Strengths)
+                    </button>
+                    <button class="flex-1 py-4 px-6 text-center font-medium text-warm-600 hover:bg-warm-100 tab-btn" data-tab="weaknesses">
+                        ⚠️ कमियां (Weaknesses)
+                    </button>
+                    <button class="flex-1 py-4 px-6 text-center font-medium text-warm-600 hover:bg-warm-100 tab-btn" data-tab="opportunities">
+                        🌟 अवसर (Opportunities)
+                    </button>
+                    <button class="flex-1 py-4 px-6 text-center font-medium text-warm-600 hover:bg-warm-100 tab-btn" data-tab="learnings">
+                        🧠 मुख्य सीख (Key Learnings)
+                    </button>
+                </div>
+
+                <div class="p-8 min-h-[250px] bg-white flex items-center justify-center">
+                    <div id="tab-content" class="text-warm-800 text-lg w-full">
+                        <ul class="list-disc pl-6 space-y-3">
+                            <li>इंडियन D2C हेयर टॉपर्स मार्केट में फर्स्ट-मूवर एडवांटेज।</li>
+                            <li>100% ह्यूमन हेयर के कारण सुपीरियर क्वालिटी और नेचुरल लुक।</li>
+                            <li>पारुल गुलाटी के रूप में एक मजबूत फाउंडर-ऑडियंस इमोशनल कनेक्शन।</li>
+                            <li>यूजर जनरेटेड कंटेंट (UGC) पर आधारित बेहद लॉयल कम्युनिटी।</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-warm-900 rounded-3xl p-10 text-center text-warm-50 shadow-xl relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#d4bb9f 2px, transparent 2px); background-size: 30px 30px;"></div>
+            <div class="relative z-10">
+                <h2 class="text-2xl md:text-3xl font-bold mb-6 text-warm-100">निश हेयर का अल्टीमेट सक्सेस फॉर्मूला</h2>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-4 text-lg md:text-xl font-semibold">
+                    <div class="bg-warm-800 px-6 py-3 rounded-xl">रिलेटेबल फाउंडर</div>
+                    <div class="text-warm-400 text-2xl">+</div>
+                    <div class="bg-warm-800 px-6 py-3 rounded-xl">प्रॉब्लम सॉल्विंग प्रोडक्ट</div>
+                    <div class="text-warm-400 text-2xl">+</div>
+                    <div class="bg-warm-800 px-6 py-3 rounded-xl">ट्रांसपेरेंट वीडियो मार्केटिंग</div>
+                    <div class="text-warm-400 text-2xl">=</div>
+                    <div class="bg-accent-pink text-warm-900 px-8 py-4 rounded-xl shadow-lg border-2 border-warm-100">
+                        प्रॉफिटेबल D2C ब्रांड 💰
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-warm-100 py-8 border-t border-warm-200 mt-12 text-center text-warm-600 text-sm">
+        <p>यह एक इंटरैक्टिव केस स्टडी है जो रिसर्च रिपोर्ट के आधार पर शैक्षिक उद्देश्यों के लिए बनाई गई है।</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- Label Wrapping Utility for Chart.js ---
+            function wrapLabel(label) {
+                if (label.length <= 16) return label;
+                const words = label.split(' ');
+                let lines = [];
+                let currentLine = words[0];
+                for (let i = 1; i < words.length; i++) {
+                    if (currentLine.length + words[i].length + 1 > 16) {
+                        lines.push(currentLine);
+                        currentLine = words[i];
+                    } else {
+                        currentLine += ' ' + words[i];
+                    }
+                }
+                lines.push(currentLine);
+                return lines;
+            }
+
+            // --- Tooltip Configuration ---
+            const tooltipConfig = {
+                callbacks: {
+                    title: function(tooltipItems) {
+                        const item = tooltipItems[0];
+                        let label = item.chart.data.labels[item.dataIndex];
+                        if (Array.isArray(label)) {
+                            return label.join(' ');
+                        } else {
+                            return label;
+                        }
+                    }
+                }
+            };
+
+            // --- Colors matching Tailwind config ---
+            const colorWarm600 = '#b8865d';
+            const colorAccentPink = '#e8b4b8';
+            const colorWarm400 = '#d4bb9f';
+            const colorAccentGreen = '#8f9a82';
+            const colorBgWarm50 = '#fdfbf7';
+
+            // --- 1. Product Mix Chart (Donut) ---
+            const productCtx = document.getElementById('productChart').getContext('2d');
+            const productLabels = ['हेयर टॉपर्स (Hero)', 'बेसिक क्लिप-इन्स', 'फेक बैंग्स/हाइलाइट्स', 'अन्य'].map(wrapLabel);
+            new Chart(productCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: productLabels,
+                    datasets: [{
+                        data: [60, 25, 10, 5],
+                        backgroundColor: [colorWarm600, colorAccentPink, colorWarm400, colorAccentGreen],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { family: 'system-ui' } } },
+                        tooltip: tooltipConfig
+                    },
+                    cutout: '65%'
+                }
+            });
+
+            // --- 2. Marketing Radar Chart ---
+            const radarCtx = document.getElementById('marketingRadarChart').getContext('2d');
+            const radarLabels = ['Instagram (Reels)', 'Facebook (Video Ads)', 'YouTube (Tutorials)', 'Google (Search Ads)', 'Influencers (PR)'].map(wrapLabel);
+            new Chart(radarCtx, {
+                type: 'radar',
+                data: {
+                    labels: radarLabels,
+                    datasets: [{
+                        label: 'प्रयास और प्रभाव स्कोर',
+                        data: [95, 85, 80, 65, 75],
+                        backgroundColor: 'rgba(232, 180, 184, 0.4)', // Accent Pink with opacity
+                        borderColor: colorAccentPink,
+                        pointBackgroundColor: colorWarm600,
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: colorWarm600
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(0,0,0,0.1)' },
+                            grid: { color: 'rgba(0,0,0,0.05)' },
+                            pointLabels: { font: { family: 'system-ui', size: 11 }, color: '#4a4a4a' },
+                            ticks: { display: false, min: 0, max: 100 }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: tooltipConfig
+                    }
+                }
+            });
+
+            // --- 3. Content Pillars Bar Chart ---
+            const barCtx = document.getElementById('contentBarChart').getContext('2d');
+            const barLabels = ['एजुकेशनल (सिखाना)', 'इमोशनल (कहानियां)', 'एंटरटेनिंग (मीम्स)'].map(wrapLabel);
+            new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: barLabels,
+                    datasets: [{
+                        label: 'एंगेजमेंट स्कोर (UGC/Comments)',
+                        data: [90, 85, 70],
+                        backgroundColor: [colorWarm400, colorAccentPink, colorWarm600],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } },
+                        x: { grid: { display: false }, ticks: { font: { family: 'system-ui' } } }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: tooltipConfig
+                    }
+                }
+            });
+
+            // --- Interactive Timeline Logic ---
+            const timelineData = {
+                1: "<strong>बूटस्ट्रैप्ड शुरुआत:</strong> पारुल गुलाटी (एक्टर) ने टीवी शूट्स के दौरान खुद हेयर थिनिंग का सामना किया। यहीं से उन्हें नेचुरल-लुकिंग एक्सटेंशन्स की जरूरत महसूस हुई। यह एक पूरी तरह से बूटस्ट्रैप्ड बिजनेस था जो एक छोटे स्केल पर इंस्टाग्राम पेज के जरिए शुरू हुआ।",
+                2: "<strong>ब्रांड को ग्राउंड लेवल पर लाना:</strong> शुरुआत में ग्राहकों का भरोसा जीतने के लिए 'Lil Flea' जैसे लाइफस्टाइल एग्जिबिशन में पॉप-अप स्टॉल्स लगाए गए। इससे लोगों को 100% ह्यूमन हेयर की क्वालिटी को छूने और महसूस करने का मौका मिला।",
+                3: "<strong>शार्क टैंक इंडिया सीज़न 2:</strong> यह ब्रांड के लिए टर्निंग पॉइंट था। शार्क अमित जैन से ₹1 करोड़ के बदले 2% इक्विटी की डील मिली। इस टीवी अपीयरेंस से ब्रांड को बड़े पैमाने पर नेशनल PR मिला और सेल्स कई गुना बढ़ गई।",
+                4: "<strong>ऑफलाइन स्टूडियो:</strong> ऑनलाइन अपार सफलता के बाद, उन्होंने मुंबई में अपना फिजिकल एक्सपीरियंस सेंटर (स्टूडियो) खोला। यहाँ ग्राहक अपॉइंटमेंट लेकर पर्सनलाइज्ड कलर मैचिंग और ट्रायल ले सकते हैं।"
+            };
+
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const timelineContent = document.getElementById('timeline-content');
+
+            timelineItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    // Remove active class from all
+                    timelineItems.forEach(i => i.classList.remove('active'));
+                    // Add active class to clicked
+                    item.classList.add('active');
+                    // Update content with fade effect
+                    timelineContent.style.opacity = 0;
+                    setTimeout(() => {
+                        timelineContent.innerHTML = timelineData[item.dataset.step];
+                        timelineContent.style.opacity = 1;
+                    }, 200);
+                });
+            });
+
+            // --- Interactive SWOT Tabs Logic ---
+            const swotData = {
+                strengths: `<ul class="list-disc pl-6 space-y-3">
+                                <li>इंडियन D2C हेयर टॉपर्स मार्केट में फर्स्ट-मूवर एडवांटेज।</li>
+                                <li>100% ह्यूमन हेयर के कारण सुपीरियर क्वालिटी और नेचुरल लुक।</li>
+                                <li>पारुल गुलाटी के रूप में एक मजबूत फाउंडर-ऑडियंस इमोशनल कनेक्शन।</li>
+                                <li>यूजर जनरेटेड कंटेंट (UGC) पर आधारित बेहद लॉयल कम्युनिटी।</li>
+                            </ul>`,
+                weaknesses: `<ul class="list-disc pl-6 space-y-3">
+                                <li>प्रीमियम प्राइसिंग (कीमतें) इसे मास मार्केट (आम जनता) की पहुंच से थोड़ा दूर रखती हैं।</li>
+                                <li>कस्टम कलरिंग और मैनुअल क्वालिटी कंट्रोल की वजह से बड़े पैमाने पर (स्केल करने पर) इन्वेंट्री की दिक्कतें आती हैं।</li>
+                            </ul>`,
+                opportunities: `<ul class="list-disc pl-6 space-y-3">
+                                <li>टीयर-2 और टीयर-3 शहरों में विस्तार करने का बड़ा मौका।</li>
+                                <li>प्रीमियम ऑफलाइन सैलून के साथ B2B टाई-अप करना।</li>
+                                <li>US/UK जैसे NRI मार्केट्स में आक्रामक तरीके से स्केल करने की अपार संभावनाएं।</li>
+                            </ul>`,
+                learnings: `<ul class="list-disc pl-6 space-y-3">
+                                <li><strong>वीडियो ही राजा है:</strong> इमेजेज से ज्यादा, ऑथेंटिक वीडियो ट्यूटोरियल्स ने सेल्स बढ़ाई है। 'Show the transformation, don't just tell'.</li>
+                                <li><strong>सहानुभूति (Empathy) बिकती है:</strong> हेयर लॉस महिलाओं के लिए एक सेंसिटिव टॉपिक है। निश हेयर ने इसे नॉर्मलाइज किया और एक सेफ स्पेस बनाई।</li>
+                            </ul>`
+            };
+
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContent = document.getElementById('tab-content');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active from all
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    // Add to clicked
+                    btn.classList.add('active');
+                    // Update content
+                    tabContent.innerHTML = swotData[btn.dataset.tab];
+                });
+            });
+        });
+    </script>
+</body>
+</html>

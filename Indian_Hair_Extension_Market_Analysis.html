@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="hi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Hair Extension Market & Strategy Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #faf9f6;
+            color: #292524;
+        }
+
+        h1, h2, h3, h4, .serif-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+
+        .tab-btn.active {
+            border-bottom-width: 3px;
+            border-color: #9a3412;
+            color: #9a3412;
+            font-weight: 600;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(250, 240, 230, 0.5);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+    </style>
+
+    <!-- Chosen Palette: Warm Neutrals & Amber (Background: #faf9f6, Text: #292524, Accents: #9a3412 / Amber-800) -->
+    <!-- Application Structure Plan: A single-page dashboard designed for deep-dive analysis. Starts with a high-level industry overview, followed by an interactive tabbed section for individual brand profiles (preventing information overload). A visual data section uses Chart.js to compare strategies. Concludes with an expandable, step-by-step actionable roadmap. This structure smoothly transitions the user from 'Understanding the Competition' to 'Executing their own business'. -->
+    <!-- Visualization & Content Choices: 
+         1. Brand Comparison -> Radar Chart (Chart.js) -> Allows visual comparison of brand strengths across multiple axes (Pricing, Online, Offline, Marketing). 
+         2. Revenue Channels -> Doughnut Chart (Chart.js) -> Shows the ideal distribution model derived from successful brands.
+         3. Actionable Roadmap -> Accordion UI (HTML/JS) -> Keeps the dense step-by-step execution plan clean and readable. 
+         4. Icons -> Unicode Emojis -> Ensures compliance with the NO SVG rule while maintaining visual appeal. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+</head>
+<body class="antialiased">
+
+    <nav class="sticky top-0 z-50 bg-[#faf9f6]/90 backdrop-blur-md border-b border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex-shrink-0 flex items-center text-xl font-bold text-orange-900 serif-font">
+                    &#x2728; HairBiz Analytics
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#overview" class="text-stone-600 hover:text-orange-900 px-3 py-2 text-sm font-medium">Overview</a>
+                    <a href="#brands" class="text-stone-600 hover:text-orange-900 px-3 py-2 text-sm font-medium">Brand Analysis</a>
+                    <a href="#strategy" class="text-stone-600 hover:text-orange-900 px-3 py-2 text-sm font-medium">Core Strategies</a>
+                    <a href="#roadmap" class="bg-orange-800 text-white hover:bg-orange-900 px-4 py-2 rounded-md text-sm font-medium transition-colors">Launch Roadmap</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="py-16 md:py-24 bg-stone-100 border-b border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span class="text-orange-800 font-semibold tracking-wider uppercase text-sm">Industry Deep Dive</span>
+            <h1 class="mt-2 text-4xl md:text-5xl font-extrabold text-stone-900">India's Hair Extension Market</h1>
+            <p class="mt-4 text-xl text-stone-600 max-w-3xl mx-auto">
+                1 Hair Stop, Hair Originals, Diva Divine aur Gemeria ki complete business strategies ka analysis. Ek actionable roadmap aapke khud ke D2C brand ke liye.
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24">
+
+        <section id="overview" class="scroll-mt-20">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-stone-900">The Rise of Premium Hair Extensions in India</h2>
+                <p class="mt-4 text-stone-600 leading-relaxed">
+                    Pehle hair extensions sirf celebrities ya high-end salons tak limited the. Lekin D2C (Direct-to-Consumer) model, Instagram reels, aur Shark Tank India jaise platforms ne is industry ko democratize kar diya hai. Aaj ethical sourcing (temple hair) aur transparent pricing ke dum par Indian brands globally scale kar rahe hain. Is section mein hum top 4 brands ka breakdown dekhenge.
+                </p>
+            </div>
+        </section>
+
+        <section id="brands" class="scroll-mt-20">
+            <h2 class="text-3xl font-bold text-stone-900 mb-8">Deep Dive: Brand Competitor Analysis</h2>
+            
+            <div class="border-b border-stone-300">
+                <nav class="flex space-x-4 md:space-x-8 overflow-x-auto" aria-label="Tabs">
+                    <button class="tab-btn active whitespace-nowrap py-4 px-1 text-base font-medium text-stone-500 hover:text-orange-800" onclick="switchTab('1hairstop')">&#x1F469;&#x200D;&#x1F6B2; 1 Hair Stop</button>
+                    <button class="tab-btn whitespace-nowrap py-4 px-1 text-base font-medium text-stone-500 hover:text-orange-800" onclick="switchTab('hairoriginals')">&#x1F4FA; Hair Originals</button>
+                    <button class="tab-btn whitespace-nowrap py-4 px-1 text-base font-medium text-stone-500 hover:text-orange-800" onclick="switchTab('divadivine')">&#x1F484; Diva Divine</button>
+                    <button class="tab-btn whitespace-nowrap py-4 px-1 text-base font-medium text-stone-500 hover:text-orange-800" onclick="switchTab('gemeria')">&#x1F3DF;&#xFE0F; Gemeria</button>
+                </nav>
+            </div>
+
+            <div class="mt-8">
+                <div id="tab-1hairstop" class="tab-pane block animate-fade-in">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="glass-card p-6 rounded-xl">
+                            <h3 class="text-2xl font-bold text-orange-900 mb-4">1 Hair Stop</h3>
+                            <ul class="space-y-4 text-stone-700">
+                                <li><strong>&#x1F6A7; Start:</strong> Local salon background se online shift kiya. Two female founders ne Instagram ki power ko samjha aur D2C model apnaya.</li>
+                                <li><strong>&#x1F3F7;&#xFE0F; Positioning:</strong> Affordable luxury. Target audience Gen-Z aur millennials hain jinhe instant volume chahiye (Clip-ins, scrunchies).</li>
+                                <li><strong>&#x1F4E2; Marketing:</strong> Highly organic. Instagram Reels par "Before/After" transformations ne inko viral kiya. Influencer micro-marketing bahut strong hai.</li>
+                                <li><strong>&#x1F3E2; Distribution:</strong> 90%+ Online (Website). Ab offline experience centers open kar rahe hain trust build karne ke liye.</li>
+                            </ul>
+                        </div>
+                        <div class="glass-card p-6 rounded-xl bg-orange-50">
+                            <h4 class="text-xl font-bold text-stone-800 mb-2">Key Takeaway</h4>
+                            <p class="text-stone-700">Content is king. Agar aap visual transformations (Reels) dikha sakte hain, toh customer easily trust karega aur website se direct buy karega bina touch/feel kiye.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-hairoriginals" class="tab-pane hidden animate-fade-in">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="glass-card p-6 rounded-xl">
+                            <h3 class="text-2xl font-bold text-orange-900 mb-4">Hair Originals</h3>
+                            <ul class="space-y-4 text-stone-700">
+                                <li><strong>&#x1F6A7; Start:</strong> Tech-founder background. Premium segment target kiya. Shark Tank India me pitch ke baad massive scale mila.</li>
+                                <li><strong>&#x1F3F7;&#xFE0F; Positioning:</strong> True Luxury & Tech-enabled. AI shade matching aur 100% natural temple hair par focus hai.</li>
+                                <li><strong>&#x1F4E2; Marketing:</strong> Shark Tank PR, premium influencer endorsements, aur educational content ki unke extensions damage-free kyun hain.</li>
+                                <li><strong>&#x1F3E2; Distribution:</strong> Hybrid. B2B (Premium Salons me inventory placement) aur D2C website. Salon partnerships inki sabse badi strength hai.</li>
+                            </ul>
+                        </div>
+                        <div class="glass-card p-6 rounded-xl bg-orange-50">
+                            <h4 class="text-xl font-bold text-stone-800 mb-2">Key Takeaway</h4>
+                            <p class="text-stone-700">B2B + B2C hybrid is powerful. Salons me products rakhne se customer ko free trial/installation milta hai, jo high-ticket items (Rs 15k+) sell karne ke liye zaroori hai.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-divadivine" class="tab-pane hidden animate-fade-in">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="glass-card p-6 rounded-xl">
+                            <h3 class="text-2xl font-bold text-orange-900 mb-4">Diva Divine Hair</h3>
+                            <ul class="space-y-4 text-stone-700">
+                                <li><strong>&#x1F6A7; Start:</strong> Ek legacy brand (2008 se). Jab online D2C nahi tha tab se retail aur B2B me dominate kar rahe hain.</li>
+                                <li><strong>&#x1F3F7;&#xFE0F; Positioning:</strong> Professional Grade & Ultra Premium. Salons aur High Net Worth Individuals (HNIs) inke main clients hain.</li>
+                                <li><strong>&#x1F4E2; Marketing:</strong> Word of mouth, professional stylists network, aur trade shows. Ab digital me aggressive ho rahe hain.</li>
+                                <li><strong>&#x1F3E2; Distribution:</strong> Major cities me inke khud ke large format retail stores/experience centers hain. D2C website secondary hai, offline presence primary.</li>
+                            </ul>
+                        </div>
+                        <div class="glass-card p-6 rounded-xl bg-orange-50">
+                            <h4 class="text-xl font-bold text-stone-800 mb-2">Key Takeaway</h4>
+                            <p class="text-stone-700">Experience centers build ultimate trust. Agar aapka product expensive hai, toh physical presence ek "premium authority" establish karti hai.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-gemeria" class="tab-pane hidden animate-fade-in">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="glass-card p-6 rounded-xl">
+                            <h3 class="text-2xl font-bold text-orange-900 mb-4">Gemeria Hair</h3>
+                            <ul class="space-y-4 text-stone-700">
+                                <li><strong>&#x1F6A7; Start:</strong> Direct sourcing factory base se start kiya. South Indian temple hair ki authentic sourcing ko apna USP banaya.</li>
+                                <li><strong>&#x1F3F7;&#xFE0F; Positioning:</strong> Accessible Premium. Unhone middle-ground choose kiya jahan quality high hai par prices justified hain.</li>
+                                <li><strong>&#x1F4E2; Marketing:</strong> Highly transparent. Process dikhate hain — hair wash, wefting kaise hoti hai. Ye transparency customer trust build karti hai.</li>
+                                <li><strong>&#x1F3E2; Distribution:</strong> Mainly D2C eCommerce aur global exports par strong hold hai.</li>
+                            </ul>
+                        </div>
+                        <div class="glass-card p-6 rounded-xl bg-orange-50">
+                            <h4 class="text-xl font-bold text-stone-800 mb-2">Key Takeaway</h4>
+                            <p class="text-stone-700">Supply chain transparency as marketing. Jab aap customer ko apne factory aur sourcing ka behind-the-scenes dikhate hain, toh brand loyalty multi-fold badh jaati hai.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="strategy" class="scroll-mt-20">
+            <h2 class="text-3xl font-bold text-stone-900 mb-4">Common Patterns & Winning Strategies</h2>
+            <p class="mb-10 text-stone-600">In sabhi top brands ke beech ek pattern hai jisse market capture kiya gaya. Yahan hum unke positioning aur channel mix ka data visualize kar rahe hain.</p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-xl font-bold text-stone-800 mb-4 text-center">Brand Positioning (Market Approach)</h3>
+                    <p class="text-sm text-stone-500 mb-4 text-center">Comparing strategic focus areas across the top brands.</p>
+                    <div class="chart-container">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                    <p class="mt-4 text-sm text-stone-600">
+                        <strong>Insight:</strong> 1 Hair Stop leads in organic social media, while Diva Divine dominates offline retail. Hair Originals bridges tech and B2B beautifully.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-xl font-bold text-stone-800 mb-4 text-center">Ideal Sales Channel Distribution</h3>
+                    <p class="text-sm text-stone-500 mb-4 text-center">A recommended hybrid model based on successful players.</p>
+                    <div class="chart-container">
+                        <canvas id="doughnutChart"></canvas>
+                    </div>
+                    <p class="mt-4 text-sm text-stone-600">
+                        <strong>Insight:</strong> Sirf website (D2C) par depend na rahein. Salons (B2B) recurring revenue dete hain aur offline experience centers high-ticket sales convert karte hain.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-orange-900 text-amber-50 rounded-2xl p-8 md:p-12 shadow-xl my-16">
+            <h2 class="text-3xl font-bold mb-6">Unki Unique Differentiators (Jo aapko seekhni chahiye)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <div class="text-4xl mb-4">&#x1F4F1;</div>
+                    <h4 class="text-xl font-bold mb-2">Tech Integration</h4>
+                    <p class="text-orange-200 text-sm">AI Shade matchers aur WhatsApp video consultations. Customer galat color lene se darta hai, tech is problem ko solve karta hai.</p>
+                </div>
+                <div>
+                    <div class="text-4xl mb-4">&#x1F4E6;</div>
+                    <h4 class="text-xl font-bold mb-2">Luxury Unboxing</h4>
+                    <p class="text-orange-200 text-sm">Hair extensions mehenge hote hain (₹3k - ₹25k). Packaging aisi honi chahiye ki customer ko 'premium gift' receive karne ka feel aaye.</p>
+                </div>
+                <div>
+                    <div class="text-4xl mb-4">&#x1F46D;</div>
+                    <h4 class="text-xl font-bold mb-2">Education as Marketing</h4>
+                    <p class="text-orange-200 text-sm">"How to wear clip-ins", "How to wash extensions". Ye brands product nahi bechte, confidence aur styling sikhaate hain.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="roadmap" class="scroll-mt-20 border-t border-stone-200 pt-16">
+            <div class="text-center mb-12">
+                <span class="inline-block px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm font-semibold tracking-wide mb-4">EXECUTION PLAN</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-stone-900">Your Actionable Launch Roadmap</h2>
+                <p class="mt-4 text-lg text-stone-600 max-w-2xl mx-auto">
+                    Agar aap aaj apna hair extension brand start karna chahte hain, toh yeh step-by-step approach follow karein. Theory nahi, pure execution.
+                </p>
+            </div>
+
+            <div class="max-w-3xl mx-auto space-y-4">
+                
+                <div class="border border-stone-300 rounded-lg bg-white overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left font-bold text-stone-800 flex justify-between items-center focus:outline-none" onclick="toggleAccordion('acc1')">
+                        <span>Phase 1: Sourcing & Product Strategy (Month 1-2)</span>
+                        <span id="icon-acc1" class="transform transition-transform duration-200">&#x25BC;</span>
+                    </button>
+                    <div id="acc1" class="accordion-content bg-stone-50">
+                        <div class="px-6 py-4 text-stone-700 space-y-3">
+                            <p><strong>Sourcing:</strong> China synthetics avoid karein. South India (Tirupati/Chennai) ke vendors se direct tie-up karein for '100% Remy Human Hair'. Ethical sourcing aapki biggest USP hogi.</p>
+                            <p><strong>Positioning:</strong> Shuru me 'Affordable Luxury' target karein (Like 1 Hair Stop). Mass market me competition zyada hai, aur ultra-luxury me trust build karne me time lagta hai.</p>
+                            <p><strong>MVP (Minimum Viable Product):</strong> Pura catalogue launch mat karein. Start with just 3 products: Seamless Clip-ins, Hair Toppers (for thinning hair - high demand), aur Scrunchies/Ponytails.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border border-stone-300 rounded-lg bg-white overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left font-bold text-stone-800 flex justify-between items-center focus:outline-none" onclick="toggleAccordion('acc2')">
+                        <span>Phase 2: Online vs Offline Setup (Month 3-4)</span>
+                        <span id="icon-acc2" class="transform transition-transform duration-200">&#x25BC;</span>
+                    </button>
+                    <div id="acc2" class="accordion-content bg-stone-50">
+                        <div class="px-6 py-4 text-stone-700 space-y-3">
+                            <p><strong>Verdict: Start ONLINE (D2C).</strong> Offline me capital heavy lagta hai. Shopify par website banayein.</p>
+                            <p><strong>Trust Factors on Website:</strong> 
+                                <br>- Har shade ka video lagayein, sirf photos nahi.
+                                <br>- Free WhatsApp video consultation ka button lagayein (Crucial for first sales).
+                                <br>- Easy return/exchange policy for unused products (with security tags).
+                            </p>
+                            <p><strong>Packaging:</strong> Custom magnetic boxes with a satin pouch inside. Include a 'care manual' and a small freebie (like a wooden comb).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border border-stone-300 rounded-lg bg-white overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left font-bold text-stone-800 flex justify-between items-center focus:outline-none" onclick="toggleAccordion('acc3')">
+                        <span>Phase 3: Ads vs Organic Marketing (Month 5-8)</span>
+                        <span id="icon-acc3" class="transform transition-transform duration-200">&#x25BC;</span>
+                    </button>
+                    <div id="acc3" class="accordion-content bg-stone-50">
+                        <div class="px-6 py-4 text-stone-700 space-y-3">
+                            <p><strong>The Strategy: Organic Content First, Ads Later.</strong></p>
+                            <p><strong>Instagram Reels:</strong> Create "Problem-Solution" reels. Example: "Thin hair? Watch this 30-sec transformation." Show realistic girls, not just professional models.</p>
+                            <p><strong>Micro-Influencers:</strong> Barter collabs karein un influencers ke saath jinke 10k-50k followers hain. Unhe product den, unse honest video review lein.</p>
+                            <p><strong>Meta Ads (Facebook/Insta):</strong> Jab organic reels par views aane lagein, unhi top-performing reels ko Ads me convert karein. Focus on retargeting ads kyunki hair extensions impulse buy nahi hote, customer 3-4 baar ad dekh kar kharidta hai.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border border-stone-300 rounded-lg bg-white overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left font-bold text-stone-800 flex justify-between items-center focus:outline-none" onclick="toggleAccordion('acc4')">
+                        <span>Phase 4: B2B Expansion & Scaling (Month 9+)</span>
+                        <span id="icon-acc4" class="transform transition-transform duration-200">&#x25BC;</span>
+                    </button>
+                    <div id="acc4" class="accordion-content bg-stone-50">
+                        <div class="px-6 py-4 text-stone-700 space-y-3">
+                            <p><strong>Salon Partnerships:</strong> Apne shehar ke top 10 premium salons visit karein. Unhe apna 'Professional Kit' demo karein (Permanent extensions like Tape-ins, I-tips).</p>
+                            <p><strong>Commission Model:</strong> Salons ko inventory kharidne mat bolein. Unhe commission de (e.g., 20% on every extension applied using your brand). Isse salons easily agree karenge.</p>
+                            <p><strong>Experience Kiosk:</strong> Jab revenue stable ho jaye, kisi premium mall me ek chota kiosk ya studio setup karein for "Touch, Feel & Match" experience.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-stone-900 text-stone-400 py-12 mt-20 text-center border-t border-stone-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <h3 class="text-xl text-stone-200 font-bold serif-font mb-4">&#x2728; HairBiz Analytics</h3>
+            <p class="text-sm">Actionable business intelligence for the Indian Beauty & Wellness sector.</p>
+            <p class="text-xs mt-8">Generated based on comprehensive market analysis.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            // Hide all panes
+            document.querySelectorAll('.tab-pane').forEach(el => {
+                el.classList.add('hidden');
+            });
+            // Remove active class from buttons
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Show selected pane and active button
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Accordion Logic
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById('icon-' + id);
+            
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                icon.style.transform = "rotate(0deg)";
+            } else {
+                // Close others
+                document.querySelectorAll('.accordion-content').forEach(el => el.style.maxHeight = null);
+                document.querySelectorAll('[id^="icon-acc"]').forEach(el => el.style.transform = "rotate(0deg)");
+                
+                // Open clicked
+                content.style.maxHeight = content.scrollHeight + "px";
+                icon.style.transform = "rotate(180deg)";
+            }
+        }
+
+        // Chart.js Configuration
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // Radar Chart - Brand Positioning
+            const ctxRadar = document.getElementById('radarChart').getContext('2d');
+            new Chart(ctxRadar, {
+                type: 'radar',
+                data: {
+                    labels: ['Online/Social Presence', 'Offline/Salon Network', 'Premium Pricing', 'Product Range', 'Marketing Hype'],
+                    datasets: [
+                        {
+                            label: '1 Hair Stop',
+                            data: [95, 40, 60, 85, 90],
+                            backgroundColor: 'rgba(251, 146, 60, 0.2)', // Orange
+                            borderColor: 'rgba(234, 88, 12, 1)',
+                            pointBackgroundColor: 'rgba(234, 88, 12, 1)',
+                        },
+                        {
+                            label: 'Hair Originals',
+                            data: [80, 85, 90, 70, 95],
+                            backgroundColor: 'rgba(56, 189, 248, 0.2)', // Blue
+                            borderColor: 'rgba(2, 132, 199, 1)',
+                            pointBackgroundColor: 'rgba(2, 132, 199, 1)',
+                        },
+                        {
+                            label: 'Diva Divine',
+                            data: [50, 95, 95, 90, 40],
+                            backgroundColor: 'rgba(167, 139, 250, 0.2)', // Purple
+                            borderColor: 'rgba(124, 58, 237, 1)',
+                            pointBackgroundColor: 'rgba(124, 58, 237, 1)',
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(0,0,0,0.1)' },
+                            grid: { color: 'rgba(0,0,0,0.1)' },
+                            pointLabels: {
+                                font: { family: 'Inter', size: 11 },
+                                color: '#444'
+                            },
+                            ticks: { display: false, min: 0, max: 100 }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { family: 'Inter' } } }
+                    }
+                }
+            });
+
+            // Doughnut Chart - Revenue Channels
+            const ctxDoughnut = document.getElementById('doughnutChart').getContext('2d');
+            new Chart(ctxDoughnut, {
+                type: 'doughnut',
+                data: {
+                    labels: ['D2C Website (Direct to Consumer)', 'B2B Salon Partnerships', 'Offline Retail / Kiosks', 'Marketplaces (Nykaa/Amazon)'],
+                    datasets: [{
+                        data: [50, 25, 15, 10],
+                        backgroundColor: [
+                            '#9a3412', // Amber 800
+                            '#fb923c', // Orange 400
+                            '#fed7aa', // Orange 200
+                            '#e7e5e4'  // Stone 200
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '65%',
+                    plugins: {
+                        legend: { 
+                            position: 'right',
+                            labels: {
+                                font: { family: 'Inter', size: 12 },
+                                color: '#444',
+                                boxWidth: 15
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ' ' + context.label + ': ' + context.parsed + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
